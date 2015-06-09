@@ -23,6 +23,7 @@ gem "therubyracer"
 gem "less-rails"
 gem "twitter-bootstrap-rails"
 gem "haml-rails", "~> 0.9"
+gem 'shortener'
 
 group :development, :test do
   gem 'byebug'

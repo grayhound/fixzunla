@@ -1,1 +1,5 @@
-%p Test content
+.col-lg-12
+  .form-panel
+    %h4.mb Insert url to shorten
+    %div.row#shortener_form_container
+      =render 'shortener/form', :shortened_url_object => Shortener::ShortenedUrl.new, :is_valid => false

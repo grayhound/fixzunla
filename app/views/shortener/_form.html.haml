@@ -1,0 +1,19 @@
+=form_for shortened_url_object, :url => shortener_new_path, :method => "post", :remote => true do |f|
+  .col-lg-8
+    =f.url_field :url, :class => 'form-control'
+  .col-lg-4
+    %input{ :type => "submit", :value => "Fixzunla url!", :class => 'btn btn-theme' }
+    =image_tag "ajax-loader.gif", :class => 'hidden', :id => 'new_shortener_shortened_url_ajax'
+  - if shortened_url_object.errors[:url]
+    .col-lg-12
+      .form_errors
+        - shortened_url_object.errors[:url].each do |error|
+          %div.alert.alert-danger
+            Field
+            =error
+  - if is_valid
+    .col-lg-12
+      %div.alert.alert-success
+        %span Here's your shortened url:
+        %br
+        =link_to shortened_url, shortened_url, :target => '_blank'
