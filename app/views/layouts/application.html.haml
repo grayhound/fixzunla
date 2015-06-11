@@ -3,16 +3,12 @@
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
     %title Fixzunla
-    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
-    = csrf_meta_tags
+    =stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    =javascript_include_tag 'application', 'data-turbolinks-track' => true
+    =csrf_meta_tags
   %body
 %section#container
-  = render 'shared/header'
-  = render 'shared/sidebar'
-  %section#main-content
-    %section.wrapper.site-min-height>
-      .row.mt
-        .col-lg-12
-          = yield
-  = render 'shared/footer'
+  =render 'shared/header'
+  .container
+    =yield
+    =render 'shared/footer'
