@@ -24,9 +24,11 @@ gem "less-rails"
 gem "twitter-bootstrap-rails"
 gem "haml-rails", "~> 0.9"
 gem 'shortener'
+gem 'devise', "3.5.1"
 
 group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'
+  gem 'mailcatcher'
 end
