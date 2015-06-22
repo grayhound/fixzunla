@@ -23,3 +23,6 @@ en:
   logout: "Logout"
   login: "Login"
   sign_up: "Sign Up"
+  time:
+    formats:
+      default: "%Y %b %e"

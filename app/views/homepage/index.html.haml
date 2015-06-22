@@ -1,5 +1,9 @@
 .row
-.col-lg-12
-  %h4.mb Insert url to shorten
-  %div.row#shortener_form_container
-    =render 'shortener/form', :shortened_url_object => Shortener::ShortenedUrl.new, :is_valid => false
+  .col-lg-12
+    %h4.mb Insert url to shorten
+    %div.row#shortener_form_container
+      =render 'shortener/form', :shortened_url_object => Shortener::ShortenedUrl.new, :is_valid => false
+
+-if user_signed_in?
+  .row
+    #shortener_urls_list_container.col-lg-12{:_url => shortener_list_path}

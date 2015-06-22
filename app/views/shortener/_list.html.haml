@@ -1,0 +1,20 @@
+%table.table.table-striped
+  %thead
+    %tr
+      %th Original url
+      %th Fixzunla url
+      %th Created
+      %th Clicks
+      %th
+    -shortened_urls.each do |shortened_url|
+      %tr
+        %td
+          =link_to shortened_url.url, shortened_url.url, :target => "_blank"
+        %td
+          =link_to (shortener_show_url :id => shortened_url.unique_key), (shortener_show_url :id => shortened_url.unique_key), :target => "_blank"
+        %td
+          =l shortened_url.created_at
+        %td
+          =shortened_url.use_count
+        %td
+          =link_to "Details", shortener_details_path(shortened_url.unique_key)
