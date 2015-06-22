@@ -20,7 +20,7 @@ class ShortenerController < ApplicationController
   end
 
   def list
-    shortened_urls = current_user.shortened_urls
+    shortened_urls = current_user.shortened_urls.page(params[:page])
     respond_to do |format|
       format.html {
         render :partial => 'shortener/list', :locals => {:shortened_urls => shortened_urls}

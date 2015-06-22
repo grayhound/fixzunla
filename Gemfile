@@ -19,12 +19,14 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem "therubyracer"
-gem "less-rails"
-gem "twitter-bootstrap-rails"
-gem "haml-rails", "~> 0.9"
+gem 'therubyracer'
+gem 'less-rails'
+gem 'twitter-bootstrap-rails'
+gem 'haml-rails', '~> 0.9'
 gem 'shortener'
-gem 'devise', "3.5.1"
+gem 'devise', '3.5.1'
+gem 'kaminari'
+gem 'bootstrap-kaminari-views'
 
 group :development, :test do
   gem 'byebug'

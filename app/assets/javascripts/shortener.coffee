@@ -16,4 +16,9 @@ $ ->
     shortenerList()
   )
 
+  $('#shortener_urls_list_container').on('ajax:success', 'a', (xhr, data, status) ->
+    list_container = $('#shortener_urls_list_container')
+    list_container.html(data)
+  )
+
   shortenerList()

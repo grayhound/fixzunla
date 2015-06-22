@@ -18,3 +18,5 @@
           =shortened_url.use_count
         %td
           =link_to "Details", shortener_details_path(shortened_url.unique_key)
+
+=paginate shortened_urls, :theme => 'twitter-bootstrap-3', :remote => true
