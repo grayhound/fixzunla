@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150625192457) do
+ActiveRecord::Schema.define(version: 20150625205538) do
 
   create_table "shortened_url_browsers", force: :cascade do |t|
     t.integer  "shortened_url_id"
@@ -35,6 +35,18 @@ ActiveRecord::Schema.define(version: 20150625192457) do
   add_index "shortened_url_countries", ["country_code"], name: "index_shortened_url_countries_on_country_code", using: :btree
   add_index "shortened_url_countries", ["shortened_url_id"], name: "index_shortened_url_countries_on_shortened_url_id", using: :btree
 
+  create_table "shortened_url_logs", force: :cascade do |t|
+    t.integer  "shortened_url_id"
+    t.string   "browser"
+    t.string   "platform"
+    t.string   "country_code"
+    t.string   "referer_domain"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "shortened_url_logs", ["shortened_url_id"], name: "index_shortened_url_logs_on_shortened_url_id", using: :btree
+
   create_table "shortened_url_platforms", force: :cascade do |t|
     t.integer  "shortened_url_id"
     t.string   "platform"
@@ -45,6 +57,17 @@ ActiveRecord::Schema.define(version: 20150625192457) do
 
   add_index "shortened_url_platforms", ["platform"], name: "index_shortened_url_platforms_on_platform", using: :btree
   add_index "shortened_url_platforms", ["shortened_url_id"], name: "index_shortened_url_platforms_on_shortened_url_id", using: :btree
+
+  create_table "shortened_url_referers", force: :cascade do |t|
+    t.integer  "shortened_url_id"
+    t.string   "domain"
+    t.integer  "count",            default: 0
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  add_index "shortened_url_referers", ["domain"], name: "index_shortened_url_referers_on_domain", using: :btree
+  add_index "shortened_url_referers", ["shortened_url_id"], name: "index_shortened_url_referers_on_shortened_url_id", using: :btree
 
   create_table "shortened_urls", force: :cascade do |t|
     t.integer  "owner_id"

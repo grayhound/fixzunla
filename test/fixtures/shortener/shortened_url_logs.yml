@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  shortened_url_id: 1
+  browser: MyString
+  platform: MyString
+  country_code: MyString
+  referer_domain: MyString
+
+two:
+  shortened_url_id: 1
+  browser: MyString
+  platform: MyString
+  country_code: MyString
+  referer_domain: MyString
