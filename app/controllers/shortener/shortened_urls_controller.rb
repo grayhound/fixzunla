@@ -9,12 +9,17 @@ class Shortener::ShortenedUrlsController < ActionController::Base
       )
       browser_id = browser.id
       platform_id = get_platform_id(browser)
+      country_code_id = get_country_code_id(request)
+
       shortened_url_browser = sl.shortened_url_browsers.where(:browser_name => browser_id).first_or_create()
       shortened_url_platform = sl.shortened_url_platforms.where(:platform => platform_id).first_or_create()
+      shortened_url_country = sl.shortened_url_countries.where(:country_code => country_code_id).first_or_create()
+
       Thread.new do
         sl.increment!(:use_count)
         shortened_url_browser.increment!(:count)
         shortened_url_platform.increment!(:count)
+        shortened_url_country.increment!(:count)
         ActiveRecord::Base.connection.close
       end
       redirect_to sl.url, :status => :moved_permanently
@@ -37,5 +42,10 @@ class Shortener::ShortenedUrlsController < ActionController::Base
       else
         :other
     end
+  end
+
+  def get_country_code_id(request)
+    info = GeoIP.new(Rails.root.join("lib/GeoIP.dat")).country(request.remote_ip)
+    info.country_code2
   end
 end

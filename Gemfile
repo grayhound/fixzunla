@@ -28,6 +28,7 @@ gem 'devise', '3.5.1'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
 gem 'browser'
+gem 'geoip'
 
 group :development, :test do
   gem 'byebug'

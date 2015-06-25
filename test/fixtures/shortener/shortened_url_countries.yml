@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  shortened_url_id: 1
+  country_code: MyString
+  count: 1
+
+two:
+  shortened_url_id: 1
+  country_code: MyString
+  count: 1

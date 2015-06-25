@@ -68,6 +68,7 @@ GEM
     erubis (2.7.0)
     eventmachine (1.0.5)
     execjs (2.5.2)
+    geoip (1.6.1)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
     haml (4.0.6)
@@ -226,6 +227,7 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.1.0)
   devise (= 3.5.1)
+  geoip
   haml-rails (~> 0.9)
   jbuilder (~> 2.0)
   jquery-rails
