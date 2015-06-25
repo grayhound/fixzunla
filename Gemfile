@@ -27,6 +27,7 @@ gem 'shortener'
 gem 'devise', '3.5.1'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
+gem 'browser'
 
 group :development, :test do
   gem 'byebug'

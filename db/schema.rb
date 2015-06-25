@@ -11,7 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150611133502) do
+ActiveRecord::Schema.define(version: 20150625181240) do
+
+  create_table "shortened_url_browsers", force: :cascade do |t|
+    t.integer  "shortened_url_id"
+    t.string   "browser_name"
+    t.integer  "count",            default: 0
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  add_index "shortened_url_browsers", ["browser_name"], name: "index_shortened_url_browsers_on_browser_name", using: :btree
+  add_index "shortened_url_browsers", ["shortened_url_id"], name: "index_shortened_url_browsers_on_shortened_url_id", using: :btree
+
+  create_table "shortened_url_platforms", force: :cascade do |t|
+    t.integer  "shortened_url_id"
+    t.string   "platform"
+    t.integer  "count",            default: 0
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  add_index "shortened_url_platforms", ["platform"], name: "index_shortened_url_platforms_on_platform", using: :btree
+  add_index "shortened_url_platforms", ["shortened_url_id"], name: "index_shortened_url_platforms_on_shortened_url_id", using: :btree
 
   create_table "shortened_urls", force: :cascade do |t|
     t.integer  "owner_id"
