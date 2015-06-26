@@ -29,6 +29,7 @@ gem 'kaminari'
 gem 'bootstrap-kaminari-views'
 gem 'browser'
 gem 'geoip'
+gem 'rqrcode'
 
 group :development, :test do
   gem 'byebug'

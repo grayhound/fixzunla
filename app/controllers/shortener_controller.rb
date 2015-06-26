@@ -31,6 +31,11 @@ class ShortenerController < ApplicationController
   def details
     @shortened_url = Shortener::ShortenedUrl.where(:unique_key => params[:unique_key]).first
     return render_404 if not @shortened_url
+    return render_404 if not current_user
+    return render_404 if not @shortened_url.owner == current_user
+
+    url = shortener_show_url(:id => @shortened_url.unique_key)
+    @qr = RQRCode::QRCode.new(url, :size => 4, :level => :h)
   end
 
   def shortener_shortened_url_params
