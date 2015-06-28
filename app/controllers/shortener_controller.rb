@@ -21,6 +21,19 @@ class ShortenerController < ApplicationController
       other: "Other",
   }
 
+  PLATFORM_NAMES = {
+    android: "Android",
+    ios: "IOS",
+    blackberry: "Blackberry",
+    mac: "Mac",
+    windows: "Windows",
+    windows_mobile: "Windows mobile",
+    windows_phone: "Windows phone",
+    linux: "Linux",
+    chrome_os: "Chrome OS",
+    other: "Other",
+  }
+
   def new
     @shortener_url_object = Shortener::ShortenedUrl.new(shortener_shortened_url_params)
     @shortener_url_object.attributes = shortener_shortened_url_params
@@ -63,6 +76,8 @@ class ShortenerController < ApplicationController
 
     @referers_chart = get_referers_chart(@shortened_url)
     @browsers_chart = get_browsers_chart(@shortened_url)
+    @countries_chart = get_countries_chart(@shortened_url)
+    @platforms_chart = get_platforms_chart(@shortened_url)
   end
 
   def shortener_shortened_url_params
@@ -70,36 +85,64 @@ class ShortenerController < ApplicationController
   end
 
   def get_referers_chart(shortened_url)
-    referers_table = ::GoogleVisualr::DataTable.new
-    referers_table.new_column("string", "Domain")
-    referers_table.new_column("number", "Click count")
+    data_table = ::GoogleVisualr::DataTable.new
+    data_table.new_column("string", "Domain")
+    data_table.new_column("number", "Click count")
 
     data = shortened_url.shortened_url_referers.
                          order(:count => :desc, :updated_at => :desc).
                          limit(10).
                          select(:domain, :count).to_a().
                          map {|value| [value['domain'], value['count']]}
-    referers_table.add_rows(data)
+    data_table.add_rows(data)
 
     option = { width: 580, height: 580, title: 'Referers' }
-    return ::GoogleVisualr::Interactive::PieChart.new(referers_table, option)
+    return ::GoogleVisualr::Interactive::PieChart.new(data_table, option)
   end
 
   def get_browsers_chart(shortened_url)
-    browsers_table = ::GoogleVisualr::DataTable.new
-    browsers_table.new_column("string", "Browser")
-    browsers_table.new_column("number", "Click count")
-
-    print BROWSER_NAMES[:ie]
+    data_table = ::GoogleVisualr::DataTable.new
+    data_table.new_column("string", "Browser")
+    data_table.new_column("number", "Click count")
 
     data = shortened_url.shortened_url_browsers.
         order(:count => :desc, :updated_at => :desc).
         select(:browser_name, :count).to_a().
         map {|value| [BROWSER_NAMES[value['browser_name'].to_sym()], value['count']]}
-    browsers_table.add_rows(data)
+    data_table.add_rows(data)
 
     option = { width: 580, height: 580, title: 'Browsers' }
-    return ::GoogleVisualr::Interactive::BarChart.new(browsers_table, option)
+    return ::GoogleVisualr::Interactive::BarChart.new(data_table, option)
+  end
+
+  def get_countries_chart(shortened_url)
+    data_table = ::GoogleVisualr::DataTable.new
+    data_table.new_column("string", "Country")
+    data_table.new_column("number", "Click count")
+
+    data = shortened_url.shortened_url_countries.
+        order(:count => :desc, :updated_at => :desc).
+        select(:country_code, :count).to_a().
+        map {|value| [value['country_code'], value['count']]}
+    data_table.add_rows(data)
+
+    option = { width: 580, height: 580, title: 'Countries' }
+    return ::GoogleVisualr::Interactive::GeoChart.new(data_table, option)
+  end
+
+  def get_platforms_chart(shortened_url)
+    data_table = ::GoogleVisualr::DataTable.new
+    data_table.new_column("string", "Platform")
+    data_table.new_column("number", "Click count")
+
+    data = shortened_url.shortened_url_platforms.
+        order(:count => :desc, :updated_at => :desc).
+        select(:platform, :count).to_a().
+        map {|value| [PLATFORM_NAMES[value['platform'].to_sym()], value['count']]}
+    data_table.add_rows(data)
+
+    option = { width: 580, height: 580, title: 'Platforms' }
+    return ::GoogleVisualr::Interactive::BarChart.new(data_table, option)
   end
 
 end
