@@ -123,7 +123,7 @@ class ShortenerController < ApplicationController
     data = shortened_url.shortened_url_countries.
         order(:count => :desc, :updated_at => :desc).
         select(:country_code, :count).to_a().
-        map {|value| [value['country_code'], value['count']]}
+        map {|value| [Country[value['country_code']].name, value['count']]}
     data_table.add_rows(data)
 
     option = { width: 580, height: 580, title: 'Countries' }
