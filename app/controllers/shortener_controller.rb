@@ -74,6 +74,7 @@ class ShortenerController < ApplicationController
     url = shortener_show_url(:id => @shortened_url.unique_key)
     @qr = RQRCode::QRCode.new(url, :size => 4, :level => :h)
 
+    @clicks_chart = get_clicks_chart(@shortened_url)
     @referers_chart = get_referers_chart(@shortened_url)
     @browsers_chart = get_browsers_chart(@shortened_url)
     @countries_chart = get_countries_chart(@shortened_url)
@@ -82,6 +83,32 @@ class ShortenerController < ApplicationController
 
   def shortener_shortened_url_params
     params.require(:shortener_shortened_url).permit(:url)
+  end
+
+  def get_clicks_chart(shortened_url)
+    data_table = ::GoogleVisualr::DataTable.new
+    data_table.new_column("string", "Day")
+    data_table.new_column("number", "Click count")
+
+    data_raw = shortened_url.shortened_url_logs.
+                         select('date(created_at) as day, count(id) as count').
+                         where('date(created_at) > ?', 10.days.ago).
+                         order('day').
+                         group('day').to_a().
+                         map { |value| {(value['day'].strftime('%d %b')) => value['count']}}.reduce(:merge)
+    data = []
+    ((Date.today-10)..Date.today).each do |date|
+      day = date.strftime('%d %b')
+      if data_raw.has_key?(day)
+        data.push([day, data_raw[day]])
+      else
+        data.push([day, 0])
+      end
+    end
+    data_table.add_rows(data)
+
+    option = { width: 1000, height: 600, title: 'Daily clicks' }
+    return ::GoogleVisualr::Interactive::LineChart.new(data_table, option)
   end
 
   def get_referers_chart(shortened_url)
@@ -122,7 +149,8 @@ class ShortenerController < ApplicationController
 
     data = shortened_url.shortened_url_countries.
         order(:count => :desc, :updated_at => :desc).
-        select(:country_code, :count).to_a().
+        select(:country_code, :count).
+        where('country_code != ?', '--').to_a().
         map {|value| [Country[value['country_code']].name, value['count']]}
     data_table.add_rows(data)
 

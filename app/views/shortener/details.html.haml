@@ -16,20 +16,22 @@
       =raw @qr.as_html
 
 .row
-  #LogChart.col-lg-12
+  #ClicksChart.col-lg-12
 
 .row
   .col-lg-6
     #ReferersChart
-    =render_chart @referers_chart, 'ReferersChart'
   .col-lg-6
     #BrowsersChart
-    =render_chart @browsers_chart, 'BrowsersChart'
 
 .row
   .col-lg-6
     #CountriesChart
-    =render_chart @countries_chart, 'CountriesChart'
   .col-lg-6
     #PlatformsChart
-    =render_chart @platforms_chart, 'PlatformsChart'
+
+=render_chart @clicks_chart, 'ClicksChart'
+=render_chart @referers_chart, 'ReferersChart'
+=render_chart @browsers_chart, 'BrowsersChart'
+=render_chart @countries_chart, 'CountriesChart'
+=render_chart @platforms_chart, 'PlatformsChart'
