@@ -30,10 +30,16 @@ gem 'bootstrap-kaminari-views'
 gem 'browser'
 gem 'geoip'
 gem 'rqrcode'
+gem 'google_visualr', :require => 'google_visualr'
 
 group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'
   gem 'mailcatcher'
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'forgery'
+  gem 'faker'
+  gem 'capybara-webkit'
 end

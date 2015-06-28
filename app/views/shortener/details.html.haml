@@ -14,3 +14,14 @@
   .col-lg-4.text-right
     .qr
       =raw @qr.as_html
+
+.row
+  #LogChart.col-lg-12
+
+.row
+  .col-lg-6
+    %h1 Referers
+    #ReferersChart
+    =render_chart @referers_chart, 'ReferersChart'
+  .col-lg-6
+    %h1 Browsers

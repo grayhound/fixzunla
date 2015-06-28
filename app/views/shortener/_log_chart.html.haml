@@ -1,0 +1,33 @@
+:javascript
+  google.setOnLoadCallback(drawLogChart);
+
+  function drawLogChart() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Date');
+      data.addColumn('number', 'Clicks');
+
+      data.addRows([
+        ["Jan",  37.8],
+        ["Feb",  30.9],
+        ["Mar",  25.4],
+        ["Apr",  11.7],
+        ["May",  11.9],
+        ["Jun",   8.8],
+        ["Jul",   7.6],
+        ["Aug",  12.3],
+        ["Sep",  16.9],
+        ["Oct", 12.8],
+        ["Nov",  5.3],
+        ["Dec",  6.6]
+      ]);
+
+      var options = {
+        width: 900,
+        height: 500
+      };
+
+      var chart = new google.charts.Line(document.getElementById('LogChart'));
+
+      chart.draw(data, options);
+  }
