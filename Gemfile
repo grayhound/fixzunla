@@ -33,7 +33,7 @@ gem 'geoip'
 gem 'rqrcode'
 gem 'google_visualr', :require => 'google_visualr'
 gem 'countries'
-gen 'rails_12factor'
+gem 'rails_12factor'
 
 group :development, :test do
   gem 'byebug'
