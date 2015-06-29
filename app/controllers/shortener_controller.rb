@@ -99,7 +99,7 @@ class ShortenerController < ApplicationController
     data = []
     ((Date.today-10)..Date.today).each do |date|
       day = date.strftime('%d %b')
-      if data_raw.has_key?(day)
+      if not data_raw.nil? and data_raw.has_key?(day)
         data.push([day, data_raw[day]])
       else
         data.push([day, 0])
