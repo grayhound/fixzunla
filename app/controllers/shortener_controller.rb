@@ -72,7 +72,7 @@ class ShortenerController < ApplicationController
 
     #qr code for urls
     url = shortener_show_url(:id => @shortened_url.unique_key)
-    @qr = RQRCode::QRCode.new(url, :size => 10, :level => :h)
+    @qr = RQRCode::QRCode.new(url, :size => 6, :level => :h)
 
     @clicks_chart = get_clicks_chart(@shortened_url)
     @referers_chart = get_referers_chart(@shortened_url)
