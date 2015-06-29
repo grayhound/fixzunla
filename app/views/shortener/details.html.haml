@@ -1,16 +1,16 @@
 .row
-  .col-lg-4
+  .col-lg-8
     %div
       %h2
         =link_to (shortener_show_url :id => @shortened_url.unique_key), (shortener_show_url :id => @shortened_url.unique_key), :target => "_blank"
-    .total_clicks
+    .info
+      =link_to @shortened_url.url, @shortened_url.url, :target => "_blank"
+      %br
+      Created:
+      =l @shortened_url.created_at	
+	.total_clicks
       Total clicks:
       =@shortened_url.use_count
-  .col-lg-4.text-center
-    =link_to @shortened_url.url, @shortened_url.url, :target => "_blank"
-    %br
-    Created:
-    =l @shortened_url.created_at
   .col-lg-4.text-right
     .qr
       =raw @qr.as_html
